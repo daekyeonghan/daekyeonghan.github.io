@@ -41,14 +41,42 @@ last_modified_at: 2022-11-18
 - **My Solution**
 
 ```java
-
+class Solution {
+    public int solution(int n) {
+        int [] arr = new int[n];
+        int answer = 0;
+        
+        for(int x=1; x<=n; x++) {
+            if(n%x == 1) {
+                arr[x-1] = x;
+                answer = arr[x-1];
+                break;
+            }
+        }
+        return answer;
+    }
+}
 ```
+배열을 만들어 n값을 x로 나누었을 때 나머지가 1인 x 중에서 가장 작은 값이 가장 먼저 배열에 들어갈 것이기 때문에 배열의 가장 첫번째 값을 리턴해줬다.
 
 ⭐
 
 - **Other Solution**
 
 ```java
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+
+        for(int i =1; i<n; i++) {
+            if(n%i==1) {
+                answer = i;
+                break;
+            }
+        }
+        return answer;
+    }
+}
 
 ```
 
