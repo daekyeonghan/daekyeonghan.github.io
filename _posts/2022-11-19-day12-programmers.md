@@ -43,18 +43,40 @@ a와 b의 대소관계는 정해져있지 않습니다.
 - **My Solution**
 
 ```java
+class Solution {
+    public long solution(int a, int b) {
+        long answer = 0;
+        if(a>b) {
+            for(long i=a; i>=b; i--) {
+                    answer += i;
+            }
+        }else {
+                for(long j=a; j<=b; j++ ) {
+                    answer += j;
+            }
+        }
+        return answer;
+    }
+}
 ```
+⭐a가 b보다 큰 경우도 있으니 if-else문으로 구현했다.
 
 
-⭐
 
 - **Other Solution**
 
 ```java
+class Solution {
+  public long solution(int a, int b) {
+      long answer = 0;
+      for (int i = ((a < b) ? a : b); i <= ((a < b) ? b : a); i++) 
+          answer += i;
 
+      return answer;
+  }
+}
 ```
+⭐for문에도 삼항연산자를 사용할 수 있다는것을 배웠다.
 
-
-⭐
 
 **프로그래머스 Lv.1 Day 12 두 정수 사이의 합 - 자바(java)**
