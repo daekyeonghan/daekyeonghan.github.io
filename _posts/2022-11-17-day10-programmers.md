@@ -1,11 +1,9 @@
 ---
 title:  "프로그래머스 Lv.1 Day 10"
-excerpt: "자바(java) - 정수 내림차순으로 배치하기
-
- "
+excerpt: "자바(java) - 정수 내림차순으로 배치하기"
 
 categories:
-  - Blog
+  - 프로그래머스
 tags:
   - [Blog]
 

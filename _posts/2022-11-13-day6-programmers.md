@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 6"
 excerpt: "자바(java) - 정수 제곱근 판별 "
 
 categories:
-  - Blog
+  - 프로그래머스
 tags:
   - [Blog]
 

@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 12"
 excerpt: "자바(java) - 두 정수 사이의 합"
 
 categories:
-  - Blog
+  - 프로그래머스
 tags:
   - [Blog]
 

@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 3"
 excerpt: "자바 - 약수의 합 "
 
 categories:
-  - Blog
+  - 프로그래머스
 tags:
   - [Blog]
 
