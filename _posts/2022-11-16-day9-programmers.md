@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 9"
 excerpt: "자바(java) - x만큼 간격이 있는 n개의 숫자"
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 

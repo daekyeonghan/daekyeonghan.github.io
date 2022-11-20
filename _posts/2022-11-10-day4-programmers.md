@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 4"
 excerpt: "자바(java) - 자릿수 더하기 "
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 

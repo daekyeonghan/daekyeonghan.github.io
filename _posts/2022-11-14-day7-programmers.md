@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 7"
 excerpt: "자바(java) - 문자열을 정수로 바꾸기 "
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 

@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 11"
 excerpt: "자바(java) - 나머지가 1이 되는 수 찾기"
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 

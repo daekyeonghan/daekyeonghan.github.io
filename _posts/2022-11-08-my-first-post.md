@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 1"
 excerpt: "자바 - 짝수와 홀수 "
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 

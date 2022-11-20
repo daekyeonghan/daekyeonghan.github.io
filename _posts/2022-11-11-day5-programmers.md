@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 5"
 excerpt: "자바(java) - 자연수 뒤집어 배열로 만들기 "
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 

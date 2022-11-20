@@ -3,7 +3,7 @@ title:  "프로그래머스 Lv.1 Day 6"
 excerpt: "자바(java) - 문자열 내 p와 y의 개수 "
 
 categories:
-  - 프로그래머스
+  - Programmers
 tags:
   - [Blog]
 
