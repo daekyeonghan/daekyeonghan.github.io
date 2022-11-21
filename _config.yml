@@ -290,5 +290,4 @@ defaults:
       comments: # true
       share: true
       related: true
-      sidebar:                 
-        nav: "sidebar-category"
+      sidebar_main: true
