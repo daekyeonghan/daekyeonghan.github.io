@@ -41,17 +41,19 @@ seoul의 원소는 길이 1 이상, 20 이하인 문자열입니다.
 - **My Solution**
 
 ```java
-
+class Solution {
+    public String solution(String[] seoul) {
+        String answer = "";
+        for(int i=0; i<seoul.length; i++) {
+            if(seoul[i].equals("Kim")) {
+               answer = "김서방은 " + i + "에 있다";
+            }
+        }
+        return answer;
+    }
+}
 ```
-⭐
+⭐문자열에서 같은 값을 찾기 위해서는 equals()를 사용해줘야한다!
 
 
-- **Other Solution**
-
-```java
-
-```
-
-⭐
-
-**프로그래머스 Lv.1 Day 13 콜라츠 추측 - 자바(java)**
+**프로그래머스 Lv.1 Day 14 서울에서 김서방 찾기 - 자바(java)**
