@@ -1,7 +1,7 @@
 ---
-title: "Programmers"
+title: "Java"
 layout: archive
-permalink: categories/programmers
+permalink: categories/java
 author_profile: true
 sidebar_main: true
 ---

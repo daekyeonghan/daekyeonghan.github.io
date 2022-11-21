@@ -1,7 +1,7 @@
 ---
-title: "Programmers"
+title: "Db"
 layout: archive
-permalink: categories/programmers
+permalink: categories/db
 author_profile: true
 sidebar_main: true
 ---
