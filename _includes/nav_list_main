@@ -24,13 +24,13 @@
         <span class="nav__sub-title">DB</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "DB" %}
-                        <li><a href="/categories/db" class="">DB ({{category[1].size}})</a></li>
+                    {% if category[0] == "Oracle" %}
+                        <li><a href="/categories/oracle" class="">Oracle ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
-        <span class="nav__sub-title">JAVA</span>
+        <span class="nav__sub-title">WEB</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "java" %}
@@ -38,7 +38,11 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!--
+      </li>
+  </ul>
+</nav>
+
+<!--
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "STL" %}
@@ -62,6 +66,3 @@
                 {% endfor %}
             </ul>
             -->
-      </li>
-  </ul>
-</nav>
