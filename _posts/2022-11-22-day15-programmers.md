@@ -1,5 +1,5 @@
 ---
-title:  "프로그래머스 Lv.1 Day 12"
+title:  "프로그래머스 Lv.1 Day 15"
 excerpt: "자바(java) - 핸드폰 번호 가리기"
 
 categories:
