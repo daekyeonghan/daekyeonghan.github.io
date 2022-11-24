@@ -41,7 +41,30 @@ arr은 길이 1 이상인 배열입니다.
 - **My Solution**
 
 ```java
+class Solution {
+    public int[] solution(int[] arr) {
+        int num = arr.length;
+        int[] answer = new int[num - 1];
+        int j = 0;
 
+        if (arr.length < 2) {
+            return new int[]{-1};
+        }
+
+        for (int i = 1; i < num; ++i) {
+            if (arr[j] > arr[i]) {
+                j = i;
+            }
+        }
+
+        for (int i = 0; i < num - 1; ++i) {
+            if (i < j) answer[i] = arr[i];
+            else answer[i] = arr[i + 1];
+        }
+
+        return answer;
+    }
+}
 ```
 
 ⭐
