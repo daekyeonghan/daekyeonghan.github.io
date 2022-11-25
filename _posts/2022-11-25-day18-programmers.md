@@ -65,5 +65,20 @@ class Solution {
 
 ⭐첫번째 for문에서는 boolean 배열의 값 중 true이면 양수, false이면 음수가 되도록 했고, 두번째 for문에서는 absolutes배열의 모든 값들을 더해줬다.
 
+- **Other Solution**
+
+```java
+class Solution {
+    public int solution(int[] absolutes, boolean[] signs) {
+        int answer = 0;
+        for (int i = 0; i < absolutes.length; i++) {
+            answer += (signs[i]) ? absolutes[i] : -absolutes[i];
+        }
+        return answer;
+    }
+}
+```
+
+⭐ simple!!!!!!! 삼항연산자로 boolean 값에 따라 양수, 음수를 바로 answer변수에 더해줬다. 굳...
 
 **프로그래머스 Lv.1 Day 18 음양 더하기 - 자바(java)**
