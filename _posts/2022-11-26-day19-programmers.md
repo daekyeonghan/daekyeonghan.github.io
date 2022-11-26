@@ -47,10 +47,42 @@ numbers의 모든 원소는 서로 다릅니다..
 - **My Solution**
 
 ```java
-
+class Solution {
+    public int solution(int[] numbers) {
+        int answer = 0;
+        for(int i=0; i<=9; i++) {
+            for(int j=0; j<numbers.length; j++) {
+                if(numbers[j] == i) {
+                    break;
+                }
+                else if(numbers.length - 1 == j) {
+                    answer += i;
+                }
+            }
+        }
+        return answer;
+        }
+    }
 ```
 
-⭐
+⭐ 이중 for문을 통해서 값을 찾아줬다. 값이 있으면 break로 나와서 다시 첫번쨰 for문으로 돌아가고, 값이 없으면 answer 변수에 그 값을 더해준다.
+
+- **Other Solution**
+
+```java
+class Solution {
+    public int solution(int[] numbers) {
+        int sum = 45;
+        for (int i : numbers) {
+            sum -= i;
+        }
+        return sum;
+    }
+}
+```
+
+⭐ 너무 어렵게 생각했나보다.. numbers 배열의 원소의 값은 1부터 9까지라고 정해져있으니 총 합은 45이다. 모든 배열의 원소들의 값을 더해주고 총 합에서 그 더해준 값을 빼면 없는 값들의 합이 나온다...
+
 
 
 
