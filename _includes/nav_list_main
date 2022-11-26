@@ -34,7 +34,7 @@
         <span class="nav__sub-title">WEB</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "jsp" %}
+                    {% if category[0] == "Jsp" %} <!--대문자가능-->
                         <li><a href="/categories/jsp/" class="">JSP ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
