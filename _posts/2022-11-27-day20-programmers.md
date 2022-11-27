@@ -37,17 +37,22 @@ s는 길이가 1 이상, 100이하인 스트링입니다.
 - **My Solution**
 
 ```java
-
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+        int num = s.length() /2;
+        
+        if(s.length() % 2 == 0) {
+            answer = s.substring(num-1, num+1);
+        }else{
+            answer = s.substring(num, num+1);
+        }
+        return answer;
+    }
+}
 ```
 
-⭐ 
-- **Other Solution**
+⭐문자열 s의 길이가 홀수인 경우에는 2로 나누었을 때 나눈 인덱스 값의 +1번째, 짝수인 경우에는 2로 나누었을 때 -1번째 값과 그 다음 값이 반환되는것으로 생각하고 문제를 풀었다. substring함수의 입력된 인자값이 2개이면 첫번째 값은 가져올 문자열의 처음 시작 부분을 지정하고, 두번째 값은 끝나는 값을 나타내며 만약 그 값이 12라면 11번째까지의 값을 가져올 수 있다.
 
-```java
-
-```
-
-⭐ 
-⭐ 
 
 **프로그래머스 Lv.1 Day 20 가운데 글자 가져오기 - 자바(java)**
