@@ -38,10 +38,23 @@ last_modified_at: 2022-11-30
 - **My Solution**
 
 ```java
-
+class Solution {
+    public boolean solution(String s) {
+        boolean answer = true;
+        
+        if(s.length() !=4 && s.length() !=6) 
+            return false;
+        
+        for(int i= 0; i<s.length(); i++) {
+            if(s.charAt(i) < '0' || s.charAt(i) > '9')
+                return false;
+        }
+        return answer;
+    }
+}
 ```
 
-⭐ 
+⭐ 먼저 문자열 s의 길이가 4와 6이 맞는지 판단해줬다. 그 후 for문에서는 OR연산자를 사용해 숫자만 있는 문자열이 있다면 초기화 값인 true가 반환되고, 문자열이 한개라도 있다면 false가 반환되게 구현해줬다.
 
 - **Other Solution**
 
