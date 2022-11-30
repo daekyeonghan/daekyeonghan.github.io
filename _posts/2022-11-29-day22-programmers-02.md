@@ -1,5 +1,5 @@
 ---
-title:  "프로그래머스 Lv.1 Day 22"
+title:  "프로그래머스 Lv.1 Day 22 - 2"
 excerpt: "자바(java) - 문자열 내림차순으로 배치하기 "
 
 categories:
