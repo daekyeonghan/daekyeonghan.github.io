@@ -59,9 +59,23 @@ class Solution {
 - **Other Solution**
 
 ```java
+class Solution {
+    public boolean solution(String s) {
+        if((s.length()==4 || s.length()==6)) {
+            try {
+                int x = Integer.parseInt(s);
+                return true;
+                
+            }catch(NumberFormatException e) {
+                return false;
+        }
+        else return false;
+        }
+    }
+}
 
 ```
-⭐ 
+⭐ 문자열 s 전체를 정수형으로 변환할 때 예외가 발생하지 않으면 true, 예외가 발생하면 false를 반환해주는 코드다.. 예외처리를 사용하는 방법은 생각하지 못했는데 정말 괜찮은 방법인 것 같다.
 
 
 **프로그래머스 Lv.1 Day 23 문자열 다루기 기본 - 자바(java)**
