@@ -41,6 +41,13 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
+                    {% if category[0] == "Board" %} <!--대문자가능-->
+                        <li><a href="/categories/board/" class="">Board ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
                     {% if category[0] == "java" %}
                         <li><a href="/categories/java/" class="">JAVA ({{category[1].size}})</a></li>
                     {% endif %}
