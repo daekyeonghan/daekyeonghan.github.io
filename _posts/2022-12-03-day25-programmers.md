@@ -41,16 +41,24 @@ last_modified_at: 2022-12-03
 - **My Solution**
 
 ```java
-
+class Solution {
+    public long solution(int price, int money, int count) {
+        long answer = 0;
+        long don = 0;
+        
+        for(int i=1; i<=count; i++) {
+            don += price * i;
+        }
+        
+        if(don>money) {
+            answer = don-money;
+        }else {
+            answer = 0;
+        }
+        return answer;
+    }
+}
 ```
 
-⭐ 
-
-- **Other Solution**
-
-```java
-
-```
-⭐ 
 
 **프로그래머스 Lv.1 Day 25 부족한 금액 계산하기 - 자바(java)**
