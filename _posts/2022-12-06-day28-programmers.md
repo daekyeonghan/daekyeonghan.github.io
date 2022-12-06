@@ -42,10 +42,30 @@ last_modified_at: 2022-12-06
 - **My Solution**
 
 ```java
-
+class Solution {
+    public int[] solution(int n, int m) {
+        int[] answer = {0,0};
+        
+        for(int i=m*n; i>0; i--){
+            if(n%i==0 && m%i==0){
+                 answer[0] = i;
+                 break;
+            }
+        }
+        
+        for(int i=m; i<=m*n; i++){
+            if(i%n==0 && i%m==0){
+                answer[1] = i;
+                break;
+            }
+        }
+        
+        return answer;
+    }
+}
 ```
 
-⭐
+⭐첫번째 값은 최대공약수로 두 수의 약수중에 가장 큰 수이다. 또는 두 수가 모두 나누어 떨어지는 수이다. 두번째 값은 최소공배수로 두 수의 배수중 겹치는 수 중에 가장 작은 값이다. 또는 두 수를 모두 나누어 떨어지게 하는 수이다.
 
 
 **프로그래머스 Lv.1 Day 28 최대공약수와 최소공배수 - 자바(java)**
