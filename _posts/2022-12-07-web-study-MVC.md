@@ -328,7 +328,7 @@ boardSelect() 메소드를 추가해주자.
 
 BoardDAO.java 클래스에 boardInsert() 메소드를 추가하였다.
 
-
+```java
 	@Override
 	public int boardInsert(BoardVO vo) {
 		int result = 0;
@@ -350,10 +350,15 @@ BoardDAO.java 클래스에 boardInsert() 메소드를 추가하였다.
 		}
 		return result;
 	}
+```
 
-------------------------------------------------------------------------------------------------------------------
---- CommandBoardWrite.java 파일 생성 CommandService 인터페이스 추가
-------------------------------------------------------------------------------------------------------------------
+
+### 5. CommandBoardWrite.java 
+- 파일 생성 CommandService 인터페이스 추가
+
+---
+
+```java
 package com.multi.home.board;
 
 import java.io.IOException;
@@ -372,16 +377,15 @@ public class CommandBoardWrite implements CommandService {
 	}
 
 }
-
-------------------------------------------------------------------------------------------------------------------
---- boardWrite.jsp 파일 생성
-로그인이 안된상태로 글 작성을 눌렀을 경우 로그인 페이지로 이동한다.
+```
+### 6. boardWrite.jsp 파일 생성
+- 로그인이 안된상태로 글 작성을 눌렀을 경우 로그인 페이지로 이동한다.
 글 제목, 내용이 입력되었는지 확인하는 스크립트 코드와 제목과 내용이 모두 입력된상태로
 글 등록 버튼을 눌렀을 때 다음 경로인 boardWriteOk.jsp로 이동할 수 있도록 한다.
-------------------------------------------------------------------------------------------------------------------
 
+---
 
-
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- 로그인 안된경우. 로그인페이지로 보내기 -->
@@ -448,16 +452,17 @@ public class CommandBoardWrite implements CommandService {
 </div>
 </body>
 </html>
+```
 
-
-------------------------------------------------------------------------------------------------------------------
---- CommandBoardWriteOk.java 파일 생성
-로그인이 되어있는 상태로 글 제목과 내용이 입력되었다.
+### 7. CommandBoardWriteOk.java 
+- 로그인이 되어있는 상태로 글 제목과 내용이 입력되었다.
 글이 DB에 추가되고, 게시판 목록에 추가한 글이 표시되어야한다.
 WriteOK는 이동되어지는 페이지로 사용자에게 보여질 화면이 없기 때문에
 jsp파일은 따로 생성하지 않는다.
-------------------------------------------------------------------------------------------------------------------
 
+---
+
+```java
 package com.multi.home.board;
 
 import java.io.IOException;
@@ -498,14 +503,15 @@ public class CommandBoardWriteOk implements CommandService {
 	}
 
 }
+```
 
-
-------------------------------------------------------------------------------------------------------------------
---- boardResult.jsp 파일 생성
-result 값이 0일 때는 글 등록 실패 -> 다시 글 등록페이지로 이동
+### 8. boardResult.jsp 
+- result 값이 0일 때는 글 등록 실패 -> 다시 글 등록페이지로 이동
 result 값이 1일 때는 글 등록 성공 -> 글 목록으로 이동
 
-------------------------------------------------------------------------------------------------------------------
+---
+
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${result==0}">
@@ -521,18 +527,19 @@ result 값이 1일 때는 글 등록 성공 -> 글 목록으로 이동
 		location.href = "/webMVC/board/boardList.do";
 	</script>
 </c:if>
+```
 
-------------------------------------------------------------------------------------------------------------------
-BoardDAO.java	(계속해서 추가됨)
-1 -- boardAllSelect() 메소드 추가 - (게시판 글 목록 조회)
-2 -- boardSelect() 메소드 추가 - (no에 해당하는 레코드를 선택하는)
-3 -- boardInsert() 메소드 추가 - (게시판 글 작성)
-4 -- hitCount() 메소드 추가 - (조회수 증가)
-5 -- totalRecord() 메소드 추가 - (총 게시물의 갯수)
+### 2-3. BoardDAO.java (계속해서 추가됨)
+	
+- boardAllSelect() 메소드 추가 - (게시판 글 목록 조회)
+- boardSelect() 메소드 추가 - (no에 해당하는 레코드를 선택하는)
+- boardInsert() 메소드 추가 - (게시판 글 작성)
+- hitCount() 메소드 추가 - (조회수 증가)
+- totalRecord() 메소드 추가 - (총 게시물의 갯수)
 
-게시글을 열람 했을 때 조회수가 증가되며, 게시글을 새로 작성하거나 삭제했을 때 총 게시글의 갯수를 구해서
-게시글 목록, 게시글 조회 때 출력된다.
-------------------------------------------------------------------------------------------------------------------
+- 게시글을 열람 했을 때 조회수가 증가되며, 게시글을 새로 작성하거나 삭제했을 때 총 게시글의 갯수를 구해서 게시글 목록, 게시글 조회 때 출력된다.
+
+```java
 	//조회수 증가	
 	@Override
 	public void hitCount(int no) {
@@ -577,24 +584,20 @@ BoardDAO.java	(계속해서 추가됨)
 	}
 
 }
+```
 
-
-
-------------------------------------------------------------------------------------------------------------------
---- CommandBoardView.java 파일 생성
-게시글 목록에서 글 제목을 눌렀을 때 글 내용이 보여져야 한다.
+### 9. CommandBoardView.java
+- 게시글 목록에서 글 제목을 눌렀을 때 글 내용이 보여져야 한다.
 글 제목을 눌렀을 때 조회수가 증가되고, 해당하는 번호의 게시글 DB 정보가 넘어온다.
 그 다음 boardView.jsp 파일로 이동된다.
 
 urlMapping.properties 파일을 열어
-
 `/board/boardView.do=com.multi.home.board.CommandBoardView`
-
 를 추가해준다.
 
+---
 
-------------------------------------------------------------------------------------------------------------------
-
+```java
 /board/boardView.do=com.multi.home.board.CommandBoardView
 
 package com.multi.home.board;
@@ -627,13 +630,16 @@ public class CommandBoardView implements CommandService {
 	}
 
 }
+```
 
-------------------------------------------------------------------------------------------------------------------
---- boardView.jsp 파일 생성
-글 제목을 눌렀을 때 보여지는 화면의 코드이다. 
+### 10. boardView.jsp
+
+- 글 제목을 눌렀을 때 보여지는 화면의 코드이다. 
 로그인된 ID와 글 작성자가 일치하여야만 수정, 삭제 버튼이 노출된다.
 
-------------------------------------------------------------------------------------------------------------------
+---
+
+```java
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -668,6 +674,6 @@ public class CommandBoardView implements CommandService {
 		</c:if>
 	</div>
 </div>
-
 </body>
 </html>
+```
