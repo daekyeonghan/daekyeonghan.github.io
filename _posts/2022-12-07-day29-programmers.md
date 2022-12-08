@@ -1,6 +1,6 @@
 ---
 title:  "프로그래머스 Lv.1 Day 29"
-excerpt: "자바(java) - 행렬의 덧셈 "
+excerpt: "자바(java) - 같은 숫자는 싫어 "
 
 categories:
   - Programmers
@@ -44,18 +44,30 @@ arr = [4, 4, 4, 3, 3] 이면 [4, 3] 을 return 합니다.
 - **My Solution**
 
 ```java
+import java.util.*;
 
+public class Solution {
+    public int[] solution(int []arr) {
+        List<Integer> arrlist = new ArrayList<Integer>();
+        int value = -1;
+        
+        for(int num : arr) {
+            if(value != num){
+                arrlist.add(num);
+            }
+            value = num;
+        }
+        int[] answer = new int[arrlist.size()];
+        for(int i=0; i<answer.length; i++) {
+            answer[i] = arrlist.get(i);
+        }
+        
+        return answer;
+    }
+}
 ```
 
-⭐이중 for문으로 같은 인덱스의 값끼리 더해줬습니다
-
-- **Other Solution**
-
-```java
-
-```
-
-⭐ 
+⭐리스트를 만들어주고 정수형 변수를 선언하여 첫번째 값으로 의미없는 숫자를 넣어줬습니다. 이제 첫번째 배열에서는 arr배열의 모든 값과 비교하여 겹치지 않는 숫자를 list에 추가해줍니다. 두번째 배열에서는 list길이만큼의 answer배열에 값을 차례대로 추가해주었습니다.
 
 
 **프로그래머스 Lv.1 Day 29 같은 숫자는 싫어 - 자바(java)**
