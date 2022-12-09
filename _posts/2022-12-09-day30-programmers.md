@@ -38,10 +38,30 @@ last_modified_at: 2022-12-09
 - **My Solution**
 
 ```java
-
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+        String [] str = s.split("");
+        int num = 0;
+        
+        for(int i=0; i<s.length(); i++) {
+            if(str[i].equals(" ")) {
+                num = 0;
+            }else if(num % 2 == 0) {
+                str[i] = str[i].toUpperCase();
+                ++num;
+            }else if(num % 2 != 0){
+                str[i] = str[i].toLowerCase();
+                ++num;
+            }
+            answer += str[i];
+        }
+        return answer;
+    }
+}
 ```
 
-⭐
+⭐문자열 배열을 선언해 문자열 s를 split()메소드를 이용해서 문자 한개씩 뽑아서 그 배열에 넣어준다. for문을 만들어서 문자열 s의 길이만큼 반복하고 그 전에 홀수, 짝수를 판별할 정수형 변수 num을 선언해준다. if-elseif 문을통해서 짝수인 경우에는 toUpperCase()메소드를 이용해서 대문자로 변환, 홀수인 경우에는 toLowerCase()메소드를 이용하여 소문자로 변환한다. 
 
 
 **프로그래머스 Lv.1 Day 30 이상한 문자 만들기 - 자바(java)**
