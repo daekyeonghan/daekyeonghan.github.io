@@ -1,6 +1,6 @@
 ---
 title:  "프로그래머스 Lv.1 Day 30"
-excerpt: "자바(java) - 이상한 문자 만들기 "
+excerpt: "자바(java) - 이상한 문자 만들기"
 
 categories:
   - Programmers
