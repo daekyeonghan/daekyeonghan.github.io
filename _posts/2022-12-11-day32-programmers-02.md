@@ -1,5 +1,5 @@
 ---
-title:  "프로그래머스 Lv.1 Day 32"
+title:  "프로그래머스 Lv.1 Day 32-2"
 excerpt: "자바(java) - 시저 암호"
 
 categories:
