@@ -55,10 +55,21 @@ n은 1 이상 100,000,000 이하인 자연수입니다.
 - **My Solution**
 
 ```java
-
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        String three = "";
+        
+        while(n != 0) {
+            three += n%3;
+            n /= 3;
+        }
+        return answer = Integer.parseInt(three,3);
+    }
+}
 ```
 
-⭐
+⭐ n 값이 0이 아닐때까지 반복 계산하여 3진수로 만들어준다. Integer.parseInt 메소드를 사용하면 10진수로 변환된다.
 
 
 **프로그래머스 Lv.1 Day 31 3진법 뒤집기 - 자바(java)**
