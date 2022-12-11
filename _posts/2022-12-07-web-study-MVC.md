@@ -677,3 +677,243 @@ public class CommandBoardView implements CommandService {
 </body>
 </html>
 ```
+
+### 2-4. BoardDAO.java (계속해서 추가됨)
+- boardAllSelect() 메소드 추가 - (게시판 글 목록 조회)
+- boardSelect() 메소드 추가 - (no에 해당하는 레코드를 선택하는)
+- boardInsert() 메소드 추가 - (게시판 글 작성)
+- hitCount() 메소드 추가 - (조회수 증가)
+- totalRecord() 메소드 추가 - (총 게시물의 갯수)
+- boardUpdate() 메소드 추가 - (글 수정)
+
+글 수정 쿼리문을 작성해주고 DB와 연결해준다.
+제목과 내용을 수정하고, 수정하려는 게시글 번호와 사용자아이디와 작성자가 일치해야한다.
+
+```java
+	@Override
+	public int boardUpdate(BoardVO vo) {
+		int result = 0;
+		try {
+			dbConn();
+			
+			sql = "UPDATE board SET subject=? content=? WHERE no=? and userid=?";
+			pstmt = conn.prepareStatement();
+			pstmt.setString(1, vo.getSubject());
+			pstmt.setString(2, vo.getContent();
+			pstmt.setInt(3, vo.getNo());
+			pstmt.setString(4, vo.getUserid());
+
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("글 수정 예외 발생..." + e.getMessage());
+		}finally {
+			dbClose();
+		}
+		
+		return result;
+	}
+
+```
+
+### 11. CommandBoardEdit.java 파일 생성
+
+마찬가지로 CommandService인터페이스를 add하여 클래스 파일을 만들어준다.
+게시물 번호를 request 하고 DB선택을 위한 dao 객체를 만들어 boardSelect()메소드를 호출한다.
+선택한 정보를 셋팅하고 jsp파일에서 쓸 이름을 지정해준다.
+boardEdit.jsp 경로를 반환해준다.
+
+먼저 urlMapping.properties 파일에
+`/board/boardEdit.do=com.multi.home.board.CommandBoardEdit`를 입력한다
+
+---
+
+```java
+package com.multi.home.board;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.multi.home.CommandService;
+
+public class CommandBoardEdit implements CommandService {
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		//게시글 번호를 request하고 정수형으로 변경해준 뒤 no 변수에 넣어준다.
+		int no = Integer.parseInt(req.getParameter("no"));
+
+		BoardDAO dao = BoardDAO.getInstance();
+		BoardVO vo = dao.boardSelect(no);
+
+		req.setAttribute("vo", vo);
+
+		return "/board/boardEdit.jsp";
+	}
+
+}
+```
+
+### 12. boardEdit.jsp 파일 생성
+
+글 보기에서 글 수정을 눌렀을 때 나오는 뷰 화면이다.
+글 제목과 내용이 입력되어 있으며 수정, 추가를 할 수 있고 공백일경우
+입력을 요청하는 스크립트도 포함되어 있다.
+'글수정'버튼, '초기화'버튼이 있다.
+초기화 버튼을 누르면 초기 제목, 내용 상태로 되돌아간다.
+
+submit 기능을 가지고 있는 것들
+
+```html
+1 - <input type="submit" value="가입"/>
+2 - <button>글등록</button>
+3 - <input type="image" src="이미지파일명"/>
+```
+이미지를 버튼으로 넣을수도 있다.
+
+글 수정 버튼을 누르면 editFormCheck() 으로 제목, 내용이 입력되어있는지 유효성검사를 하고나서
+boardEditOk로 이동한다.
+
+---
+
+```java
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글수정 폼</title>
+<link rel="stylesheet" href="/webMVC/css/style.css" type="text/css"/>
+<style>
+	#subject, #content{
+		width:100%;
+	}
+	#content{
+		height:200px;
+	}
+</style>
+<script>
+	function editFormCheck(){
+		if(document.getElementById("subject").value == ""){
+			alert("글 제목을 입력하세요");
+			return false;
+		}
+		if(document.getElementById("content").value == ""){
+			alert("글 내용을 입력하세요");
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+<div class="container">
+	<h1>글수정 폼</h1>
+	<form method="post" action="/webMVC/board/boardEditOk.do" onsubmit="return editFormCheck()">
+		<input type="hidden" name="no" value="${vo.no}"/>
+		<ul>
+			<li>제목</li>
+			<li><input type="text" name="subject" id="subject" value="${vo.subject }"/></li>
+			<li>글내용</li>
+			<li>
+				<textarea name="content" id="content">${vo.content}</textarea>
+			</li>
+			<li>
+				<button>글수정</button>
+				<input type="image" src="/webMVC/img/tmon.png"/>
+				<input type="reset" value="초기화"/>
+			</li>
+		</ul>
+	</form>
+</div>
+</body>
+</html>
+```
+
+### 13. CommandBoardEditOk.java 파일 생성
+
+제목, 내용 수정으로 새로운 텍스트가 입력됐다. 반영을 해주며 지나가는 파일로, 뷰 페이지에는 나타낼것이 없으므로 jsp파일을 따로 생성해줄 필요는 없다. 대신 수정이 된 결과가 보여질 boardEditResult.jsp 파일을 생성해준다.
+
+---
+
+```java
+package com.multi.home.board;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.multi.home.CommandService;
+
+public class CommandBoardEditOk implements CommandService {
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		
+		//글수정 폼에서 수정한 글의 번호와 제목 내용을 request 한다.
+		BoardVo vo = ne BoardVO();
+		vo.setNo(Integer.parseInt(req.getParameter("no")));
+		vo.setSubject(req.getParameter("subject"));
+		vo.setContent(req.getParameter("content")));
+
+		//세션의 아이디 정보를 가져온다(글작성자)
+		HttpSession session = req.getSession();
+		vo.setUserid((String)session.getAttribute("logId"));
+
+		//DB정보에 업데이트해준다.
+		BoardDAO dao = BoardDAO.getInstance();
+		int result = dao.boardUpdate(vo);
+
+		//뷰페이지로 글 번호와, DB업데이트된 result 값을 보내준다.
+		req.setAttribute("no", vo.getNo());
+		req.setAttribute("result", result);
+
+		return "/board/boardEditResult.jsp";
+		
+	}
+
+}
+
+```
+
+### 14. boardEditResult.jsp로 이동
+
+result값이 0 보다 클때는 제목과 글 수정 내용이 있다는것이므로
+글 번호를 가지고 다시 해당 글 보기로 이동된다.
+
+0보다 작거나 같을때는 실패했으므로 다시 글 수정 폼으로 되돌아간다.
+
+---
+
+```java
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!-- 글 수정 성공시 -->
+
+<c: if test="${result>0}">
+	<script>
+		location.href="/webMVC/board/boardView.do?no=${no}";
+	</script>
+</c:if>
+
+<!-- 글 수정 실패시 -->
+<c: if test="result<=0">
+	<script>
+		alert("글 수정 실패했습니다.");
+		history.go(-1);
+	</script>
+</c:if>
+```
+
+여기까지가 기본적인 게시판의 기능이라고 볼 수 있다.
+먼저 로그인을 하고, 글을 작성하고, 수정하고 삭제할 수 있다.
+글을 작성한 시간이 기록되고 글이 새로 생성될때마다 순차적으로 번호가 부여된다.
+로그인되어있는 정보와 일치하여야만 자신의 글을 수정 또는 삭제할 수 있다.
