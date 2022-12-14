@@ -49,10 +49,30 @@ strings의 원소는 길이 1 이상, 100이하인 문자열입니다.
 - **My Solution**
 
 ```java
+import java.util.Arrays;
 
+class Solution {
+    public String[] solution(String[] strings, int n) {
+        String[] answer = new String[strings.length];
+        
+        for(int i=0; i<strings.length; i++) {
+            strings[i] = strings[i].charAt(n) + strings[i];
+        }
+        
+        Arrays.sort(strings);
+        
+        for(int i=0; i<strings.length; i++) {
+            answer[i] = strings[i].substring(1);
+        }
+        
+        return answer;
+    }
+}
 ```
 
-⭐
+⭐처음에 생각한건 strings배열에서 인덱스별로 값을 뽑아준 다음 n번째 값을 뽑아서 오름차순 정렬을 해주려고 했지만 그 정렬한 값으로 다시 원래의 단어대로 돌아가는것을 생각해내지 못했다. 계속 생각해본 결과 좋은 방법이 떠올랐다.
+
+⭐먼저 strings.length 만큼 반복문을 실행하고 strings 배열안에 있는 단어들의 n번째 값을 뽑아서 그 단어의 앞에다 붙여주는 것이다. 그리고 sort() 오름차순 메소드를 이용하여 오름차순 정렬해주었다. 그 다음으로 substring() 메소드로 1번째 값부터 즉, 더해준 값 다음 값부터 뽑아서 answer배열에 담아줬다. 그리고 answer배열을 반환해주면 문제는 해결된다.
 
 - **Other Solution**
 
