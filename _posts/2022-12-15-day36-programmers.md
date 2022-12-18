@@ -54,18 +54,60 @@ commands의 각 원소는 길이가 3입니다.
 - **My Solution**
 
 ```java
+import java.util.Arrays;
 
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+        int[] answer = new int[commands.length];
+        
+        for(int i=0; i<commands.length; i++) {
+            int [] tmp = new int[commands[i][1] - (commands[i][0]-1)];
+            for(int j=0; j<tmp.length; j++) {
+                tmp[j] = array[j + (commands[i][0]-1)];
+            }
+            Arrays.sort(tmp);
+            answer[i] = tmp[commands[i][2]-1];
+        }
+        return answer;
+    }
+}
 ```
 
 ⭐
+입출력 예의 2차원 commands 배열을 보기쉽게 풀어써봤다.
+```
+[0][0], [0][1], [0][2]
+2        5       3
+
+[1][0], [1][1], [1][2]
+4        4       1
+
+[2][0], [2][1], [2][2]
+1        7       3
+```
+2중 반복문을 만들어줬고, 반복문이 실행되는동안 값이 저장되어야 할 int형 배열을 하나 만들어준다. 이때 배열의 크기는 `commands[i][1] - (commands[i][0]-1)` 크기가된다.
+만들어둔 tmp 배열에 array값을 조건대로 뽑아준 뒤 sort() 메소드로 정렬해주었다. 여기서 2차원배열의 `[0][2], [1][2], [2][2]`  번째 값이 가리키는 순서의 값을 뽑아줘 answer배열에 넣어주면된다.
 
 - **Other Solution**
 
 ```java
+import java.util.Arrays;
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+        int[] answer = new int[commands.length];
 
+        for(int i=0; i<commands.length; i++){
+            int[] temp = Arrays.copyOfRange(array, commands[i][0]-1, commands[i][1]);
+            Arrays.sort(temp);
+            answer[i] = temp[commands[i][2]-1];
+        }
+
+        return answer;
+    }
+}
 ```
 
-⭐
+⭐copyOfRange() 메소드를 사용하였다. `[ Arrays.copyOfRange(복사하고자하는 배열, 시작 위치, 배열크기); ]`로 선언해주면 되며, 주의할 점은 복사되는 배열은 시작 위치부터 배열크기 바로 전까지 복사된다는 점. 시작위치를 `commands[i][0]-1`로 해주고 배열의 크기를 `commands[i][1]`로 선언해줬다.
 
 
 **프로그래머스 Lv.1 Day 36 K번째수 - 자바(java)**
