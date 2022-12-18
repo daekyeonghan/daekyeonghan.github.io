@@ -32,90 +32,69 @@ last_modified_at: 2022-12-18
 
 참고로 각 숫자에 대응되는 영단어는 다음 표와 같습니다.
 
-|**array**|**commands**|
+|**숫자**|**영단어**|
 |:---:|:---:|
 |0|zero|
-|0|zero|
-|0|zero|
-|0|zero|
-|0|zero|
-|0|zero|
-|0|zero|
-|0|zero|
-|0|zero|
+|1|one|
+|2|two|
+|3|three|
+|4|four|
+|5|five|
+|6|six|
+|7|seven|
+|8|eight|
+|9|nine|
 
 
 
 
 - **제한 사항**
-|**array**|**commands**|**return**|
-|:---:|:---:|:---:|
-|[1, 5, 2, 6, 3, 7, 4]|[ [2, 5, 3], [4, 4, 1], [1, 7, 3] ]|[5, 6, 3]|
+1 ≤ s의 길이 ≤ 50
+s가 "zero" 또는 "0"으로 시작하는 경우는 주어지지 않습니다.
+return 값이 1 이상 2,000,000,000 이하의 정수가 되는 올바른 입력만 s로 주어집니다.
 
 
 - **입출력 예**
 
+|**s**|**result**|
+|:---:|:---:|
+|"one4seveneight"|1478|
+|"23four5six7"|234567|
+|"2three45sixseven"|234567|
+|"123"|123|
 
+입출력 예 설명
+입출력 예 #1
 
+문제 예시와 같습니다.
+입출력 예 #2
+
+문제 예시와 같습니다.
+입출력 예 #3
+
+"three"는 3, "six"는 6, "seven"은 7에 대응되기 때문에 정답은 입출력 예 #2와 같은 234567이 됩니다.
+입출력 예 #2와 #3과 같이 같은 정답을 가리키는 문자열이 여러 가지가 나올 수 있습니다.
+입출력 예 #4
+
+s에는 영단어로 바뀐 부분이 없습니다.
 
 
 - **My Solution**
 
 ```java
-import java.util.Arrays;
 
-class Solution {
-    public int[] solution(int[] array, int[][] commands) {
-        int[] answer = new int[commands.length];
-        
-        for(int i=0; i<commands.length; i++) {
-            int [] tmp = new int[commands[i][1] - (commands[i][0]-1)];
-            for(int j=0; j<tmp.length; j++) {
-                tmp[j] = array[j + (commands[i][0]-1)];
-            }
-            Arrays.sort(tmp);
-            answer[i] = tmp[commands[i][2]-1];
-        }
-        return answer;
-    }
-}
 ```
 
 ⭐
-입출력 예의 2차원 commands 배열을 보기쉽게 풀어써봤다.
-```
-[0][0], [0][1], [0][2]
-2        5       3
 
-[1][0], [1][1], [1][2]
-4        4       1
-
-[2][0], [2][1], [2][2]
-1        7       3
-```
-2중 반복문을 만들어줬고, 반복문이 실행되는동안 값이 저장되어야 할 int형 배열을 하나 만들어준다. 이때 배열의 크기는 `commands[i][1] - (commands[i][0]-1)` 크기가된다.
-만들어둔 tmp 배열에 array값을 조건대로 뽑아준 뒤 sort() 메소드로 정렬해주었다. 여기서 2차원배열의 `[0][2], [1][2], [2][2]`  번째 값이 가리키는 순서의 값을 뽑아줘 answer배열에 넣어주면된다.
 
 - **Other Solution**
 
 ```java
-import java.util.Arrays;
-class Solution {
-    public int[] solution(int[] array, int[][] commands) {
-        int[] answer = new int[commands.length];
 
-        for(int i=0; i<commands.length; i++){
-            int[] temp = Arrays.copyOfRange(array, commands[i][0]-1, commands[i][1]);
-            Arrays.sort(temp);
-            answer[i] = temp[commands[i][2]-1];
-        }
-
-        return answer;
-    }
-}
 ```
 
-⭐copyOfRange() 메소드를 사용하였다. `[ Arrays.copyOfRange(복사하고자하는 배열, 시작 위치, 배열크기); ]`로 선언해주면 되며, 주의할 점은 복사되는 배열은 시작 위치부터 배열크기 바로 전까지 복사된다는 점. 시작위치를 `commands[i][0]-1`로 해주고 배열의 크기를 `commands[i][1]`로 선언해줬다.
+⭐
 
 
-**프로그래머스 Lv.1 Day 36 K번째수 - 자바(java)**
+**프로그래머스 Lv.1 Day 37 숫자 문자열과 영단어 - 자바(java)**
