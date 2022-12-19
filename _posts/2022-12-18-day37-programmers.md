@@ -82,19 +82,30 @@ s에는 영단어로 바뀐 부분이 없습니다.
 - **My Solution**
 
 ```java
-
+class Solution {
+    public int solution(String s) {
+        int answer = 0;
+        String [] words = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+        
+        for(int i=0; i<words.length; i++) {
+            
+            s = s.replaceAll(words[i], Integer.toString(i));
+        }
+        
+        return answer = Integer.parseInt(s);
+    }
+}
 ```
 
-⭐
+⭐ replaceAll() 메소드를 이용하여 숫자를 나타내는 영단어를 숫자로 바꾸어줬다.
 
+`String replaceAll(String regex, String replacement)`
+문자열 내에 있는 정규식 regex와 매치되는 모든 문자열을 replacement 문자열로 바꾸고
+그 문자열이 반환된다.
 
-- **Other Solution**
+`String replace(char oldChar, char newChar)`
+문자열내에 있는 모든 oldChar를 newChar로 바꾼 문자열을 반환한다.
 
-```java
-
-```
-
-⭐
 
 
 **프로그래머스 Lv.1 Day 37 숫자 문자열과 영단어 - 자바(java)**
