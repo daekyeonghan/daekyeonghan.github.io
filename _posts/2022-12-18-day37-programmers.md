@@ -98,6 +98,7 @@ class Solution {
 ```
 
 ⭐ replaceAll() 메소드를 이용하여 숫자를 나타내는 영단어를 숫자로 바꾸어줬다.
+Integer.toString() 메소드로 정수형 i값을 문자형으로 변경해줬고, 다시 answer 반환에서 Integer.parseInt() 메소드로 정수형으로 변경해줬다.
 
 `String replaceAll(String regex, String replacement)`
 문자열 내에 있는 정규식 regex와 매치되는 모든 문자열을 replacement 문자열로 바꾸고
@@ -106,6 +107,22 @@ class Solution {
 `String replace(char oldChar, char newChar)`
 문자열내에 있는 모든 oldChar를 newChar로 바꾼 문자열을 반환한다.
 
+- 숫자 -> 문자 변환
 
+|**자료형**|**메소드**|
+|:---:|:---:|
+|Int|Integer.toString|
+|Float|Float.toString|
+|Double|Double.toString|
+|Long|Long.toString|
+
+- 문자 -> 숫자 변환
+
+|**자료형**|**메소드**|
+|:---:|:---:|
+|Int|Integer.parseInt|
+|Float|Float.parseFloat|
+|Double|Double.parseDouble|
+|Long|Long.parseLong|
 
 **프로그래머스 Lv.1 Day 37 숫자 문자열과 영단어 - 자바(java)**
