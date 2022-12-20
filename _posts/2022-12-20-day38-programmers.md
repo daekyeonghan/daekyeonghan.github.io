@@ -25,6 +25,7 @@ last_modified_at: 2022-12-20
 
 
 - **제한 사항**
+
 numbers의 길이는 2 이상 100 이하입니다.
 numbers의 모든 수는 0 이상 100 이하입니다.
 
@@ -89,7 +90,7 @@ contains()메소드를 사용하여 중복된 값을 걸러주고 add()메소드
 일반 배열과 동일하게 연속된 메모리 공간을 사용하며 인덱스는 0부터 시작한다.
 배열은 크기가 고정인 반면 ArrayList는 크기가 가변적으로 변한다. 
 기본적인 ArrayList 생성 형태
-`ArrayList<Integer> arrList = new ArrayList<>();`
+`ArrayList<Integer> arrList = new ArrayList<Integer>();`
 
 `add()` 메소드로 생성한 List에 값을 추가할 수 있다.
 기본적으로 리스트의 가장 끝에 값을 추가한다, 별도로 인덱스를 지정하면 해당 인덱스에 값이 추가되고 그 인덱스부터의 값들이 1칸씩 밀려난다.
@@ -98,10 +99,23 @@ contains()메소드를 사용하여 중복된 값을 걸러주고 add()메소드
 
 `remove()` 기존에 리스트에 추가돼있는 값을 삭제할 때 사용하는 메소드
 
+`clear()` ArrayList 안의 내용을 전체 삭제할 때 사용하는 메소드
+
+`get()` 각 인덱스의 값을 순차적으로 탐색할 때 사용하는 메소드
+
 `contains()` 값이 존재하는지 확인할 때 사용하는 메소드
+값이 있는 경우 true, 값이 없는 경우 false를 리턴한다.
 
 `indexOf()` 값이 어느 위치에 존재하는지 , 인덱스값을 리턴하는 메소드
 값이 존재하지 않을 경우에는 -1을 리턴한다.
+
+⭐ArrayList 정렬
+
+`Collections.sort(list)`
+ArrayList를 오름차순으로 정렬할 때
+
+`Collections.sort(list, Collections.reverseOrder())`
+ArrayList를 내림차순으로 정렬할 때
 
 
 **프로그래머스 Lv.1 Day 38 두 개 뽑아서 더하기 - 자바(java)**
