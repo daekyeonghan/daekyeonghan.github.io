@@ -42,9 +42,27 @@ last_modified_at: 2022-12-23
 - **My Solution**
 
 ```java
-
+class Solution {
+    public String solution(int a, int b) {
+        String answer = "";
+        
+        String [] day = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
+        int [] lastday = {31,29,31,30,31,30,31,31,30,31,30,31};
+        
+        int date = 0;
+        
+        for(int i=0; i<a-1; i++) {
+            date += lastday[i];
+        }
+        
+        date += b-1;
+        
+        return answer = day[date%7];
+    }
+}
 ```
 
-⭐
+⭐2016년으로 연도가 정해져있으므로 요일, 매월 마지막일자를 배열로 선언해서 문제를 풀었다. 몇번째 날인지 저장할 변수를 선언하고 for문을 통해 월별 마지막 날 수의 합을 구해줬다. 그리고 a-1달까지의 일 수 + a달의 일 수를 해주고 일수%7로 요일을 구해서 리턴해줬다.
+
 
 **프로그래머스 Lv.1 Day 40 2016년 - 자바(java)**
