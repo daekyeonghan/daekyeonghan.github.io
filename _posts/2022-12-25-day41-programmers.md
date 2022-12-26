@@ -1,6 +1,6 @@
 ---
 title:  "프로그래머스 Lv.1 Day 41"
-excerpt: "자바(java) - K번째수"
+excerpt: "자바(java) - 폰켓몬"
 
 categories:
   - Programmers
