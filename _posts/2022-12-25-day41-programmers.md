@@ -63,8 +63,25 @@ nums의 길이(N)는 1 이상 10,000 이하의 자연수이며, 항상 짝수로
 
 - **My Solution**
 
-```java
+임시저장
 
+```java
+class Solution {
+    public int solution(int[] nums) {
+        int answer = 0;
+        int tot = nums.length/2;
+        
+        for(int i=0; i<=nums.length; i++) {
+            if(nums[i] != nums[i+1]) {
+                for(int j=0; j<=i; j++) {
+                    
+                }
+            }
+            if(answer == tot) break;
+        }
+        return answer;
+    }
+}
 ```
 
 ⭐
