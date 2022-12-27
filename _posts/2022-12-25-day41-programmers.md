@@ -66,25 +66,30 @@ nums의 길이(N)는 1 이상 10,000 이하의 자연수이며, 항상 짝수로
 임시저장
 
 ```java
+import java.util.List;
+import java.util.ArrayList;
+
 class Solution {
     public int solution(int[] nums) {
         int answer = 0;
-        int tot = nums.length/2;
+        int half = nums.length/2;
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(nums[0]);
         
-        for(int i=0; i<=nums.length; i++) {
-            if(nums[i] != nums[i+1]) {
-                for(int j=0; j<=i; j++) {
-                    
-                }
+        for(int i=1; i<nums.length; i++) {
+            if(!list.contains(nums[i])) {
+                list.add(nums[i]);
             }
-            if(answer == tot) break;
         }
-        return answer;
+        
+        return answer = (list.size() < half) ? list.size() : half;
+        
     }
 }
 ```
 
-⭐
+⭐List()메소드를 이용하여 첫번째 값을 먼저 추가해준 뒤, contains() 메소드로 중복값이 아니라면 add() 메소드를 이용하여 값을 추가해준다.
+list의 크기가 nums 배열의 길이를 2로 나눈 값 즉 N마리의 폰켓몬 중에서 N/2마리를 가져가도 좋다고 하였으니, True면 list.size() 값을, False면 half 값을 리턴한다.
 
 
 **프로그래머스 Lv.1 Day 41 폰켓몬 - 자바(java)**
