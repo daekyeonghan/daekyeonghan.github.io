@@ -56,10 +56,63 @@ last_modified_at: 2022-12-26
 - **My Solution**
 
 ```java
+import java.util.*;
 
+class Solution {
+    public int[] solution(int[] answers) {
+        int [] supo1 = {1,2,3,4,5};
+        int [] supo2 = {2,1,2,3,2,4,2,5};
+        int [] supo3 = {3,3,1,1,2,2,4,4,5,5};
+        
+        int [] score = {0,0,0};
+        
+        for(int i=0; i<answers.length; i++) {
+            if(answers[i] == supo1[i%5]) {
+                score[0]++;
+            }
+            if(answers[i] == supo2[i%8]) {
+                score[1]++;
+            }
+            if(answers[i] == supo3[i%10]) {
+                score[2]++;
+            }
+            
+        }
+        
+        int max = Math.max(score[0],Math.max(score[1],score[2]));
+        
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i=0; i<score.length; i++) {
+            if(max == score[i]) {
+                list.add(i+1);
+            }
+        }
+        int[] answer = new int[list.size()];
+        for(int i=0; i<list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+
+        return answer;
+    }
+}
 ```
 
 ⭐
+수포자 삼인방의 찍는 방식을 자세히 보면
+```
+1번 수포자가 찍는 방식: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, ...
+2번 수포자가 찍는 방식: 2, 1, 2, 3, 2, 4, 2, 5, 2, 1, 2, 3, 2, 4, 2, 5, ...
+3번 수포자가 찍는 방식: 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, ...
+```
 
+1번 수포자 : 1,2,3,4,5
+2번 수포자 : 2,1,2,3,2,4,2,5
+3번 수포자 : 3,3,1,1,2,2,4,4,5,5
+
+규칙적으로 반복된다
+
+따라서 사람별로 배열을 만들어주고, 문제가 정답일 경우에 정답 갯수값을 담아줄 변수를 선언해준다. 다음으로 for문을 만들어 반복실행하면서 answers배열의 정답과 비교해 정답일 경우에 갯수를 증가시켜준다. Math.max() 메소드를 이용하여 두 변수를 비교하고 최댓값을 뽑아주었다. 두 변수만 비교 가능하니 첫번째 괄호안에 두번째 변수자리에 또 Math.max()를 넣어 총 삼인방의 정답 갯수를 비교해줬다.
+
+다음으로는 List를 만들어 최대점수를 가진 수포자 리스트를 만들어주고 그 값을 다시 answer배열에 넣어주었다. 
 
 **프로그래머스 Lv.1 Day 42 모의고사 - 자바(java)**
