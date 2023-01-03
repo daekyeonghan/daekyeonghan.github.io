@@ -10,6 +10,15 @@
       </li>
       -->
       <li>
+        <span class="nav__sub-title">PROJECT</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Team Project" %}
+                        <li><a href="/categories/teamproject/" class="">Team Project ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
         <!--span 태그로 카테고리들을 크게 분류 ex) C/C++/C#-->
         <span class="nav__sub-title">Coding Test</span>
             <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
