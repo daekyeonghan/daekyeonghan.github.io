@@ -1,5 +1,5 @@
 ---
-title: "TeamProject"
+title: "Team Project"
 layout: archive
 permalink: categories/teamproject/
 author_profile: true
