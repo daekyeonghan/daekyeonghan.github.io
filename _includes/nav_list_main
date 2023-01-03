@@ -13,7 +13,7 @@
         <span class="nav__sub-title">PROJECT</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Team Project" %}
+                    {% if category[0] == "TeamProject" %}
                         <li><a href="/categories/teamproject/" class="">Team Project ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
