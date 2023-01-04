@@ -71,9 +71,64 @@ Single(S), Double(D), Triple(T)은 점수마다 하나씩 존재한다.
 - **My Solution**
 
 ```java
+class Solution {
+    public int solution(String dartResult) {
+        int answer = 0;
+        int [] dart = new int [3];
+        
+        int n = 0;
+        int idx = 0;
+        String numstr="";
+        
+        for(int i=0; i<dartResult.length(); i++) {
+            char c = dartResult.charAt(i);
+        
+            if(c>='0' && c<='9') {
+                numstr += String.valueOf(c);
+            }
 
+            else if(c=='S'||c=='D'||c=='T') {
+                n = Integer.parseInt(numstr);
+
+                if(c=='S') {
+                    dart[idx++] = (int)Math.pow(n,1);
+                }
+                else if(c=='D') {
+                    dart[idx++] = (int)Math.pow(n,2);
+                }
+                else{
+                    dart[idx++] = (int)Math.pow(n,3);
+                }
+                numstr="";
+            }
+
+            else {
+                if(c=='*') {
+                    dart[idx-1] *= 2;
+                    if(idx-2>=0) {
+                        dart[idx-2] *= 2;
+                    }
+                }else {
+                    dart[idx-1] *= (-1);
+                }
+            }
+        }
+        
+        return answer = dart[0] + dart[1] + dart[2];
+    }
+}
 ```
 
-⭐
+⭐ 우선 String dartResult값을 charAt() 메소드를 이용하여 문자 단위로 분리해주면서
+첫번째 문자부터 끝 문자까지 숫자, 보너스, 옵션일 경우로 조건을 나누어 검사한다.
+
+숫자일 경우에는 numstr에 문자를 더해준다.
+
+문자일 경우에 S, D, T 인지 확인하고 numstr에 들어있는 숫자를 정수로 변환하고 각각 점수를 계산한다.
+
+*와 #인 경우에도 조건에 맞추어 각각 2와 -1을 곱해준다.
+여기서 주의사항은 *의 경우 첫번째 게임일 떄를 제외하고 해당점수와 이전 점수의 2배이므로 `dart[idx-2] *= 2` 를 해주었다.
+
+최종적으로 세 점수의 합을 answer에 담아주고 리턴해주면된다.
 
 **프로그래머스 Lv.1 Day 46 [1차] 다트 게임 - 자바(java)**
