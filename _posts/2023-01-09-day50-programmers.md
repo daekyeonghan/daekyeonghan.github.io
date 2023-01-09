@@ -90,4 +90,31 @@ getOrDefault() 메소드는 key값에 매핑되는 value가 없을때 Default값
 
 HashMap의 경우 동일 키 값을 추가할 경우 Value의 값이 덮어쓰기가 된다. 따라서 기존 key 값의 value를 계속 사용하고 싶을 경우 getOrDefault 메소드를 사용할 수 있다.
 
+- **Other Solution**
+
+```java
+import java.util.Arrays;
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+
+        Arrays.sort(participant);
+        Arrays.sort(completion);
+
+        for(int i=0; i<participant.length-1; i++) {
+          if(!completion[i].equals(participant[i])) {
+            answer = participant[i];
+            break;
+          }
+        }
+
+        return answer;
+    }
+}
+```
+
+⭐HashMap() 메소드를 사용하지 않고 for문만으로도 문제를 풀 수가있다.
+
+Arrays.sort() 메소드를 사용하여 각 배열을 오름차순으로 정렬해준 다음 for문으로 인덱스값을 넣어주고 중복값을 검사한 뒤 중복되지 않는 값이 있다면 완주하지 않은 선수이므로 마라톤에 참여한 선수들의 명단 배열인 participant의 값을 answer에 넣어주고 for문을 종료한다.
+
 **프로그래머스 Lv.1 Day 50 완주하지 못한 선수 - 자바(java)**
