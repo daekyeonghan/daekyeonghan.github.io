@@ -51,9 +51,43 @@ completion의 길이는 participant의 길이보다 1 작습니다.
 - **My Solution**
 
 ```java
+import java.util.*;
 
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+        HashMap<String, Integer> hm = new HashMap<>();
+        
+        for(String key : participant) {
+            hm.put(key, hm.getOrDefault(key, 0) + 1);
+        }
+        
+        for(String key : completion) {
+            hm.put(key, hm.get(key) - 1);
+        }
+        
+        for(String key : hm.keySet()) {
+            if(hm.get(key) != 0) {
+                answer = key;
+                break;
+            }
+        }
+        return answer;
+    }
+}
 ```
 
-⭐
+⭐ HashMap() 메소드를 이용하여 푸는 문제이다. 참가자 이름을 key 값으로 1을 value로 HashMap에 넣어준다. getOrDefault()메소드로 중복된 key값을 넣어줄 수 있다.
+
+두번째 for문으로 완주자와 같은 참가자(key)의 value값을 -1 해줌으로써 0으로 만들어 줄 수 있다.
+
+최종적으로 value값이 0이 아닐때의 key값 즉 미완주자의 이름을 반환해주면 된다.
+
+⭐ `getOrDefault(Object key, V DefaultValue)`
+getOrDefault() 메소드는 key값에 매핑되는 value가 없을때 Default값을 넣겠다는 메소드이다. 
+
+찾는 key가 존재한다면 해당 key에 매핑되어 있는 값을 반환하고, 그렇지 않으면 디폴트 값이 반환된다.
+
+HashMap의 경우 동일 키 값을 추가할 경우 Value의 값이 덮어쓰기가 된다. 따라서 기존 key 값의 value를 계속 사용하고 싶을 경우 getOrDefault 메소드를 사용할 수 있다.
 
 **프로그래머스 Lv.1 Day 50 완주하지 못한 선수 - 자바(java)**
