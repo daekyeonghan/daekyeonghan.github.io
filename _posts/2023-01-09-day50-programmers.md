@@ -77,13 +77,16 @@ class Solution {
 }
 ```
 
-⭐ HashMap() 메소드를 이용하여 푸는 문제이다. 참가자 이름을 key 값으로 1을 value로 HashMap에 넣어준다. getOrDefault()메소드로 중복된 key값을 넣어줄 수 있다.
+⭐ HashMap() 메소드를 이용하여 푸는 문제이다. 
+
+참가자 이름을 key 값으로 1을 value로 HashMap에 넣어준다. getOrDefault()메소드로 중복된 key값을 넣어줄 수 있다.
 
 두번째 for문으로 완주자와 같은 참가자(key)의 value값을 -1 해줌으로써 0으로 만들어 줄 수 있다.
 
 최종적으로 value값이 0이 아닐때의 key값 즉 미완주자의 이름을 반환해주면 된다.
 
 ⭐ `getOrDefault(Object key, V DefaultValue)`
+
 getOrDefault() 메소드는 key값에 매핑되는 value가 없을때 Default값을 넣겠다는 메소드이다. 
 
 찾는 key가 존재한다면 해당 key에 매핑되어 있는 값을 반환하고, 그렇지 않으면 디폴트 값이 반환된다.
