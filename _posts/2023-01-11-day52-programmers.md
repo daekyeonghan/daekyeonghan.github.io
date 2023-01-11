@@ -119,9 +119,13 @@ moves의 길이와 board의 길이만큼 이중 for문을 통해 `board[j][moves
 ⭐ Stack 자료구조에 대한 간단한 메서드
 
 `push(E item)` Stack에 top부분에 삽입한다.
+
 `pop()` top에 있는 item을 삭제하고 item을 반환한다.
+
 `peek()` top에 있는 item을 삭제하지 않고 item을 반환한다.
+
 `empty()` Stack이 비어있으면 true를 그렇지 않으면 false를 반환한다.
+
 `search(Object o)` 해당 Object의 위치를 반환한다.
 
 
