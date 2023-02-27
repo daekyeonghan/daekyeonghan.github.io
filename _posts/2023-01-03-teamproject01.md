@@ -14,8 +14,8 @@ date: 2023-02-26
 last_modified_at: 2023-02-26
 ---
 
-> 제가 직접 구현한 부분을 설명하기 위해서 만들었습니다.  
-시연영상이나 시스템 구성도 등 세부내용은 프로젝트 레포지토리 리드미를 참고 부탁드립니다.  
+> 제가 직접 구현한 부분을 자세하게 설명하기 위해서 만들었습니다.  
+시연영상이나 시스템 구성도 등 세부내용은 아래 링크에서 Readme 를 참고 부탁드립니다.  
 ▶[📺 이웃집하로](https://github.com/daekyeonghan/petsalon)◀  
 감사합니다.
 
@@ -266,7 +266,122 @@ admindir, userdir 별 경로를 설정해주어 업로드 했을 경우 이상�
 
 부트스트랩 캐러셀을 활용하였고, 가장 최근 리뷰 작성날짜부터 3개까지의 후기 정보를 가져와줬습니다.
 
-#### 7.네이버 클라우드 플랫폼 ChatBot 서비스 구현  
-#### 8. Ajax, 이메일 본인인증을 활용한 고객 비밀번호 재설정 구현  
-#### 9. 마이페이지 후기작성, 확인  
+#### 7. 네이버 클라우드 플랫폼 ChatBot 서비스 구현  
+![image](https://user-images.githubusercontent.com/117332830/221511674-2baadaf5-8ea0-4537-9adc-0318299148f8.png)  
 
+![image](https://user-images.githubusercontent.com/117332830/221511745-13b33992-8839-44cb-a593-09500f0c0fd8.png)
+
+![image](https://user-images.githubusercontent.com/117332830/221511942-f236069b-77bf-4400-8757-79562fae4a25.png)
+
+네이버 클라우드 플랫폼 API Clover ChatBot을 활용하여 심플한 챗봇 서비스를 구현하였습니다. 간단한 문의사항은 사용자가 입력한 질문이나 키워드에 따라서 저장된 답변이 전달되게 구현하였습니다. 추가 문의사항은 카카오톡 채널을 추가로 개설하여 링크를 전달하는 방식으로 하였고 1:1 대화를 통하여 자세한 상담을 진행할 수 있습니다.
+
+```java
+			$(document).ready(function(){
+			
+			$('#chatEnter').click(function(){
+				if(document.getElementById('quest').value == '')
+					return;
+				chatbot();
+				document.getElementById('quest').value = null;
+			});
+			$('#chatform').keypress(function(e){
+				if(document.getElementById('quest').value == '')
+					return;
+				if(e.keyCode == 13){
+					chatbot();
+					document.getElementById('quest').value = null;
+				}
+			});
+			$('.close').click(function(){
+				document.getElementById('addAnswer').remove();
+			});
+			
+		});
+		
+		function chatbot(){
+			var divQ = document.createElement('div');
+			divQ.innerHTML = '<div style="display:inline-block;margin:2px;float:right;background-color:#eec550;color:white; border-radius:10px; margin-top:10px;"><div style="margin:5px; ">'+$('#quest').val()+'</div></div><br>';
+			document.getElementById('addAnswer').appendChild(divQ);
+			$.ajax({
+				url:'[[@{/chatbot}]]',
+				data:{
+					quest:$('#quest').val()
+				},
+				success:function(data){
+					var divA = document.createElement('div');
+					divA.innerHTML = '<div style="display:inline-block;background-color:#2c2955;color:white; border-radius:10px;max-width:70%; margin-top:25px;"><div style="margin:5px; ">'+data+'</div></div><br>';
+					document.getElementById('addAnswer').appendChild(divA);
+					var chat = document.querySelector('#chatBasic');
+			        chat.scrollTop = chat.scrollHeight;
+				}
+			});
+			
+			var chat = document.querySelector('#chatBasic');
+	        chat.scrollTop = chat.scrollHeight;
+		};
+```
+[챗봇 스크립트 코드]
+
+```java
+<a id="chatbot" href="#" data-bs-toggle="modal" data-bs-target="#modal_chatbot" class="img" style="position: fixed; top:78%; right: 3%; width:100px; background-image: url(assets/img/chatbot1.png); width:150px; height:100px; z-index:10;"></a>
+        
+	<div class="modal fade" id="modal_chatbot" role="dialog" data-backdrop="static" data-keyboard="false">
+	    <div class="modal-dialog modal-2sm">
+	      <div class="modal-content" style="width:100%;">
+	        <div class="modal-header">
+	          <div>모든 문의사항 편하게 질문해주세요:)</div>
+	          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+	          <h4 class="modal-title"></h4>
+	        </div>
+		        
+	        <div id="chatBasic" class="modal-body" style="height:500px;overflow:scroll;">
+	        	<div style="display:inline-block;background-color:#2c2955;color:white; border-radius:10px;max-width:70%; font-family:'Spoqa Han Sans Neo', 'sans-serif';"><div style="margin:5px;">안녕하세요 이웃집하로입니다:)<br>무엇을 도와드릴까요?<br><br>아래 내용은 질문 리스트입니다.<br><br>위치, 가격, 예약, 운영시간, 특이사항</div><a href="http://pf.kakao.com/_lxcANxj" style="text-decoration: none; color: yellow;">&nbsp;<img src="assets/img/channel.svg" style="width: 20px; height: 20px;"> 카카오톡 채널 : 이웃집하로</a><br><br></div>
+		        <div id="addAnswer"></div>
+	        </div>
+	        <div class="modal-footer" style="justify-content: flex-start;">
+				<div class="col-md-10" style="float:left;" id="chatform">
+					<input id="quest" type="text" style="width:100%;">
+				</div>
+				<button type="button" class="btn btn-primary" id="chatEnter" style="float: right;">전송</button>
+	        </div>
+	      </div>
+	    </div>
+	</div>  
+```
+[챗봇 html 코드]
+
+챗봇 API를 활용하면 현재 플랫폼 서비스들 전반적으로 활용하고 있는 챗봇 형식처럼 사용자에게 답변을 선택할 수 있게하는 객관식답변 형식의 메세지 등등 다방면으로 활용할 수 있습니다. 
+
+이번 프로젝트에서는 짧은 기간동안 진행하였고 위에 말했던 것 처럼 챗봇을 더 발전시켜서 구현하고 싶은 마음이 컸지만 전체적으로 서비스의 완성도를 높이는 것이 맞다고 생각되어 저장된 답변만 출력하는 형식의 심플한 챗봇을 구현하였습니다. 추후에 여유가 생긴다면 꼭 비슷하게 구현해보고 싶습니다.
+
+#### 8. 마이페이지 후기작성, 확인  
+
+![image](https://user-images.githubusercontent.com/117332830/221517477-60a861f4-01a5-4943-b119-ae565ca60177.png)
+[마이페이지 - 내 이용 내역 화면]
+
+![image](https://user-images.githubusercontent.com/117332830/221517213-2b1f9c65-ad6b-45e4-baaa-58292e6df0e2.png)
+[마이페이지 - 내 이용 내역 html 코드]
+
+![image](https://user-images.githubusercontent.com/117332830/221520760-5a465b15-6b04-4401-9345-3a153bea8e77.png)
+[마이페이지 - 내 이용 내역 쿼리문]
+
+
+사용자가 이용한 내역들을 보여주는 화면입니다. 등록된 강아지의 사진 등 예약 정보가 출력되는데 이 부분에 후기가 작성된 예약정보라면 위 사진처럼 리뷰확인을 할 수 있고
+후기가 아직 작성되어 있지 않다면 리뷰작성 버튼이 노출됩니다. 리뷰확인을 누르면 작성한 후기를 확인할 수 있고 관리자가 답변을 달았다면 그 답변도 확인 가능하고 리뷰작성을 누르면 마찬가지로 해당 예약정보에 맞는 후기를 작성할 수 있습니다.
+
+#### 9. 팀프로젝트 회고  
+
+교육 시작하기 전부터 팀프로젝트 걱정이 많았는데 운좋게도 팀원들을 잘 만난 덕분에 잘 마무리할 수 있었습니다. 자유롭게 의견과 지식을 나눌 수 있는 분위기였고 개인적으로도 친해질 수 있는 계기가 된 것 같습니다. 줌을 통하여 팀원 모두 캠을 킨 상태로 처음부터 끝까지 함께하였고 모르는것이 있으면 그때그때 물어보는 방식으로 진행하였기 때문에 4명이 마지막까지도 성장하는 계기가 된 것 같습니다.  
+
+처음 기획할 때는 1:다로 여러 가게들이 입점하고 사용자는 가게별로 인기 스타일도 볼 수 있고 바로 예약 가능한 가게도 볼 수 있도록 다양한 서비스들을 생각했었지만 처음 하는 프로젝트고 기간이 짧았기 때문에 현재와 같이 한 가게로 서비스를 하고 전체적으로 완성도를 높이고자 하였습니다. 
+
+#### 어떻게 협업 ?
+
+백엔드 개발자 4명이서 웹 서비스를 개발 해야하기 때문에 프론트엔드 부분은 최대한 깔끔해 보이려고 했는데 괜찮게 잘 나온것 같습니다. git은 교육 초반부터 알고리즘 문제 풀이를 기록해두려고 블로그 페이지를 만들어서 작성해가고 있었는데 이클립스와 연동해서 push & pull 하는 과정을 새롭게 배웠습니다. 또한 브랜치를 나눠 사용하고 레포지토리를 관리하고 git 구조에 대한 이해를 바탕으로 git 사용이 자연스러워졌습니다. 물론 처음부터 git을 통한 협업이 순조롭게 진행되진 못했습니다만 계속해서 부딪히며 하다보니 어느정도 개념이 잡힌 것 같습니다.
+
+#### 팀프로젝트를 하기 전과 후 다른점이 있다면?
+
+팀프로젝트를 하기 전에는 매일매일 진행하는 교육이 끝나고 알고리즘 문제를 풀어보거나 그날그날 배운것을 복습하는 것으로 지내왔지만 교육 특성상 진도도 너무 빠르고 배우는 양이 방대해서 모든 내용을 따라가는 것이 힘들었습니다. 하지만 하나부터 열까지 직접 코딩하면서 직접 웹서비스를 만들어가는 과정을 통해 내가 이 기능을 구현하려면 html 코드는 어떻게 짜야하는지, 또 데이터베이스 쿼리문은 어떻게 짜야하는지 '아 이부분에는 이게 필요하겠구나 저게 필요하겠구나'를 알게된 것 같습니다. 또한 NCP 리눅스 서버인 centOS 환경에 war 파일로 배포도 직접 해보면서 서버를 가동시켜봤고 구현은 하지 못했지만 로드 밸런싱의 개념도 알게 됐습니다. 데이터 분산은 서비스에 있어서 중요한 부분인 것을 다시 한번 깨달았습니다.
+
+#### 아쉬웠던 점
+모든 것이 처음이었는데 팀장직까지 맡게되어 신경 쓸 게 정말 많았습니다. 저희는 2명은 관리자페이지, 2명은 사용자페이지 기능을 맡아서 구현을 했습니다. 다시 프로젝트 기획단계로 돌아간다고 한다면 가장먼저 보여지는 화면인 프론트 부분을 팀원들과 먼저 정해놓고 시작해 통일성 있게 페이지를 구성할 것입니다. 
