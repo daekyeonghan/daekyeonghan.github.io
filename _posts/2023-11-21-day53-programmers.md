@@ -158,6 +158,8 @@ class Solution {
 }
 ```
 
+![image](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/38cfd614-cfbc-4635-b92c-689623294027)
+
 ⭐ 최종
 
 값이 나오는 대로 바로 더해주면 되기 때문에 배열을 사용할 필요가 없었다. 배열을 지우고 최종 제출해도 똑같이 시간초과로 실패가 나왔다. 약수 구하는 알고리즘에 변화를 주어야했다. 처음으로 생각했던 방법은 1부터 number까지 전부 검증을 해봐야하기 때문에 실행시간이 O(n)으로 number 값이 작을 땐 효율적이지만 number 값이 커지면 아주 비효율적이다.
