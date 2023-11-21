@@ -70,7 +70,74 @@ last_modified_at: 2023-11-21
 
 ---
 
+각 기사 1번부터 number 까지 번호가 지정
+
+무기점에서 무기 구매
+
+자신의 기사 번호의 약수 개수에 해당하는 공격력을 가진 무기를 구매함
+
+(이웃나라와의 협약에 의해 공격력의 제한수치를 정하고, 제한수치보다 큰 공격력을 가진 무기를 구매해야 하는 기사는
+협약기관에서 정한 공격력을 가지는 무기를 구매해야 함)
+
+EX) 15번으로 지정된 기사단원은 15의 약수가 1,3,5,15로 4개 이므로 공격력이 4인 무기를 구매
+
+이웃나라와의 협약으로 정해진 공격력의 제한수치가 3이고
+제한수치를 초과한 기사가 사용할 무기의 공격력이 2라면
+15번으로 지정된 기사단원은 무기점에서 공격력이 2인 무기를 구매함
+
+무기를 만들 때 무기의 공격력 1당 1kg의 철이 필요함
+
+Q. 무기점에서 무기를 모두 만들기 위해 필요한 철의 무게를 미리 계산
+
+기사단원의 수를 나타내는 정수 - `number`  
+이웃나라와 협약으로 정해진 공격력의 제한수치를 나타내는 정수 - `limit`  
+제한수치를 초과한 기사가 사용할 무기의 공격력을 나타내는 정수 - `power`  
+
 - **My Solution**
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int solution(int number, int limit, int power) {
+        int answer = 0;
+        int [] array = new int[number];
+        int cnt = 0;
+        for(int i=1; i<=number; i++) {
+            for(int j=1; j<=i; j++) {
+                if(i%j == 0) {
+                    cnt++;
+                }
+            }
+            if(cnt > limit) {
+                cnt = power;
+            }
+            array[i-1] = cnt;
+            answer += array[i-1];
+            cnt = 0;
+        }
+        return answer;
+    }
+}
+```
+⭐ 첫 번째 풀이
+
+1부터 number로 주어진 값 까지 반복문을 돌면서
+약수를 구하고 그 갯수를 새 배열에 넣어준다.
+
+새 배열에 넣어줄 때 limit 보다 크다면 power의 값이 들어가게 한다
+
+배열에 들어간 값들을 더해주면 끝
+
+⭐ 결과
+
+![image](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/27bc84eb-58b9-497f-8f8b-0c6deaa5ee5c)
+
+시간 초과로 실패 하였다.
+
+
+
+
 
 ```java
 class Solution {
@@ -91,23 +158,12 @@ class Solution {
 }
 ```
 
-⭐들어온 순서부터 값이 밑에 쌓이고 위로 또 값이 쌓이는 형식으로 Stack 구조와 유사하다. 따라서 stack을 선언한 뒤 처음 값과 비교할 대상이 필요하므로 0을 넣어준다.
+⭐ 최종
 
-moves의 길이와 board의 길이만큼 이중 for문을 통해 `board[j][moves[i]-1]`을 검사한다. 만약 0이라면 인형이 없는 것이기 때문에 넘어가고, 0이 아니라면 Stack의 가장 윗 요소와 `board[j][move-1]`가 같은지 비교한다. 값이 같다면 인형이 사라지는 것이기 때문에 pop을 해주고 answer에 2를 더해준다.
+값이 나오는 대로 바로 더해주면 되기 때문에 배열을 사용할 필요가 없었다. 배열을 지우고 최종 제출해도 똑같이 시간초과로 실패가 나왔다. 약수 구하는 알고리즘에 변화를 주어야했다. 처음으로 생각했던 방법은 1부터 number까지 전부 검증을 해봐야하기 때문에 실행시간이 O(n)으로 number 값이 작을 땐 효율적이지만 number 값이 커지면 아주 비효율적이다.
 
-값이 다르다면 Stack에 `board[j][move-1]` 을 push해준다.
+number의 약수가 1일 때 다른 약수는 number/1이 되므로 다른 하나의 약수는 number가 된다. 제곱근을 기준으로 나눗셈을 절반만 실행하면 훨씬 빠른 계산 결과를 얻을 수 있다. 그 후 * 2를 해주면 된다. 이렇게 되면 실행시간이 O(√n)으로 단축된다.
 
-⭐ Stack 자료구조에 대한 간단한 메서드
-
-`push(E item)` Stack에 top부분에 삽입한다.
-
-`pop()` top에 있는 item을 삭제하고 item을 반환한다.
-
-`peek()` top에 있는 item을 삭제하지 않고 item을 반환한다.
-
-`empty()` Stack이 비어있으면 true를 그렇지 않으면 false를 반환한다.
-
-`search(Object o)` 해당 Object의 위치를 반환한다.
 
 
 **프로그래머스 Lv.1 Day 53 기사단원의 무기 - 자바(java)**
