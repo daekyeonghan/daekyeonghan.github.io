@@ -116,37 +116,38 @@ class Solution {
 ⭐
 list를 만들어 주고 score의 길이만큼 반복문을 돌려준다.
 list의 크기가 k보다 커질때까지 score의 값을 하나씩 add 해준다.
-그 이후부터는 list의 0번째 값과 score 배열의 i번째 값과 비교해주면서 score 배열의 값이 더 크다면 0번째의 값을 그 값으로 바꿔준다.
+그 이후부터는 list의 0번째 값과 score 배열의 i번째 값과 비교해주면서 score 배열의 i번째 값이 더 크다면 0번째의 값을 그 값으로 바꿔준다.
 `Collection.sort(list)`로 list 안에 값들을 정렬해주고 작은 값을 answer 배열에 넣어주면 된다.
 
 - **Other Solution**
 
 ```java
 class Solution {
-    public int solution(int number, int limit, int power) {
-        int answer = 0;
-        for(int i=1; i<=number; i++) {
-            int cnt = 0;
-            for(int j=1; j*j<=i; j++) {
-                if(j * j == i) cnt++;
-                else if(i%j == 0) cnt += 2;
+    public int[] solution(int k, int[] score) {
+        int[] answer = new int [score.length];
+
+        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+
+        for(int i = 0; i<score.lengthl i++) {
+            queue.add(score[i]);
+
+            if(queue.size() > k) {
+                queue.poll();
             }
-            
-            if(cnt > limit) cnt = power;
-            answer += cnt;
+
+            answer[i] = queue.peek();
         }
+
         return answer;
     }
 }
 ```
 
-![image](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/38cfd614-cfbc-4635-b92c-689623294027)
+⭐ 우선순위 큐의 특징을 이용하여 해결할 수도 있다.  
+별다른 정렬 기준을 정해주지 않으면 작은 수에서 큰 수로 정렬되는 오름차순 정렬방식이다. 큐와 동일한 성질을 가지고 있기 때문에 가장 앞에 있는 값이 먼저 출력된다.
 
-⭐ 최종
+`queue.poll()` - 가장 작은 값을 제거한다.
 
-값이 나오는 대로 바로 더해주면 되기 때문에 배열을 사용할 필요가 없었다. 배열을 지우고 최종 제출해도 똑같이 시간초과로 실패가 나왔다. 약수 구하는 알고리즘에 변화를 주어야했다. 처음으로 생각했던 방법은 1부터 number까지 전부 검증을 해봐야하기 때문에 실행시간이 O(n)으로 number 값이 작을 땐 효율적이지만 number 값이 커지면 아주 비효율적이다.
-
-number의 약수가 1일 때 다른 약수는 number/1이 되므로 다른 하나의 약수는 number가 된다. 제곱근을 기준으로 나눗셈을 절반만 실행하면 훨씬 빠른 계산 결과를 얻을 수 있다. 그 후 * 2를 해주면 된다. 이렇게 되면 실행시간이 O(√n)으로 단축된다.
 
 
 
