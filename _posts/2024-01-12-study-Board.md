@@ -112,26 +112,109 @@ Part 1 부분에서 작성했던 `DataSourceTests` 클래스와 `JDBCTests` 클�
 `BoardMapper` 인터페이스를 추가하고 `tbl_board` 테이블의 저장되어 있는 게시물 형식의 데이터들을 리스트 형식으로 불러오는 쿼리문을 작성해줍니다.
 
 ![20240112_154246_20](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/6e4b25e4-9152-47f1-ba33-a23a726217a7)  
-작성된 `BoardMapper` 인터페이스를 테스트 할 수 있도록 테스트 환경인 `src/test/java`에 패키지를 작성하고 `BoardMapperTests` 클래스를 추가합니다.
+작성된 `BoardMapper` 인터페이스를 테스트 할 수 있도록 테스트 환경인 `src/test/java`에 패키지를 작성하고 `BoardMapperTests` 클래스를 추가합니다.  
 
-![20240112_154246_21](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/3a4c5a54-7a16-4921-afed-7bee901602fa)
-![20240112_154246_22](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/32c66be5-d636-48db-a3e4-391be463ff75)
-![20240112_154246_23](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/5c2c8781-0e0b-4207-91f3-89d194784a09)
-![20240112_154246_24](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/6ade5505-0c3e-46fa-a351-b1b5bdf9b9ed)
-![20240112_154246_25](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/cd722087-51b3-40b9-9aaf-1db203333659)
-![20240112_154246_26](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/9e86658b-f47d-43ba-b62d-9b5e9c2041e6)
-![20240112_154246_27](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/4a210d70-f40a-42c2-838a-8ba2838e1a3e)
-![20240112_154246_28](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/f85f1b89-a424-4410-9980-c11f0647066e)
-![20240112_154246_29](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/f064f55e-93b0-4883-bba6-6cd314de5465)
-![20240112_154246_30](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/cf4da852-77ab-4dde-934c-5501589cc19f)
-![20240112_154246_31](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/8c7b52d6-d7e8-47b0-891f-b06f2c0ee67c)
-![20240112_154246_32](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/c913d228-f751-4a59-b2e3-2ed34b082129)
+src/test/java에 org.zerock.mapper 패키지를 작성하고 `BoardMapperTests`클래스를 추가하여 `BoardMapper` 인터페이스의 구현체를 주입받아 Junit 테스트를 동작합니다.
+
+콘솔창에서 리스트 형식으로 출력된 결과물을 확인할 수 있습니다.  
+
+![20240112_154246_21](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/3a4c5a54-7a16-4921-afed-7bee901602fa)  
+
+src/main/resources 에 mapper 폴더를 만들어 `BoardMapper.xml` 파일을 생성합니다.
+mapper의 namespace 속성값을 Mapper 인터페이스와 동일한 이름을 주고 select 태그의 id 속성값은 메서드의 이름과 동일하게 작성합니다. resultType 속성의 값은 select 쿼리의 결과를 특정 클래스의 객체로 만들기 위해서 설정합니다.  
+
+xml에 sql 문을 작성하였으니 BoardMapper 인터페이스의 SQL은 제거합니다.
+
+-***CRUD 구현***
+
+-**insert문**
+![20240112_154246_22](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/32c66be5-d636-48db-a3e4-391be463ff75)  
+
+- insert만 처리되고 생성된 PK 값을 알 필요가 없는 경우
+- insert문이 실행되고 생성된 PK 값을 알아야 하는 경우
+
+위 두가지 경우를 고려해서 메서드를 생성합니다.
+ 
+![20240112_154246_23](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/5c2c8781-0e0b-4207-91f3-89d194784a09)  
+
+`BoardMapper.xml` 의 insert 태그를 추가합니다.
+
+insert() 는 단순히 시퀀스의 다음 값을 구해서 insert 할 때 사용되어 지고
+insertSelectKey() 는 @SelectKey 라는 MyBatis의 어노테이션을 사용합니다.  
+@SelectKey는 주로 PK 값을 미리 SQL을 통해서 처리해 두고 특정한 이름으로 결과를 보관하는 방식입니다.  
+
+![20240112_154246_24](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/6ade5505-0c3e-46fa-a351-b1b5bdf9b9ed)  
+
+- 오류해결은 하단에 기재하였습니다.  
+
+![20240112_154246_27](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/4a210d70-f40a-42c2-838a-8ba2838e1a3e)  </div>
+
+다음과 같이 테스트 코드를 작성하고 실행결과를 확인합니다.  
+
+![20240112_154246_26](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/9e86658b-f47d-43ba-b62d-9b5e9c2041e6)  
+
+![20240112_154246_28](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/f85f1b89-a424-4410-9980-c11f0647066e)  
+
+-**read(select) 처리**  
+![20240112_154246_29](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/f064f55e-93b0-4883-bba6-6cd314de5465)  
+
+`BoardMapper`에 코드를 추가하여 줍니다.  
+
+![20240112_154246_30](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/cf4da852-77ab-4dde-934c-5501589cc19f)  
+
+select 태그를 작성하고 쿼리를 생성합니다.  
+
+![20240112_154246_31](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/8c7b52d6-d7e8-47b0-891f-b06f2c0ee67c)  
+Test 코드를 다음과 같이 작성해 주고 read 메소드를 호출할 경우에는 현재 테이블에 있는 데이터의 bno 값이 존재하는지 여부를 반드시 확인해야 합니다. 데이터가 존재 한다면 아래와 같이 결과가 나오는 것을 확인할 수 있습니다.  
+![20240112_154246_32](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/c913d228-f751-4a59-b2e3-2ed34b082129)  
+
+-**delete 처리**
+
+데이터를 삭제하는 작업은 PK 값을 이용해서 처리하므로 조회하는 작업과 유사하게 처리합니다.  
+
 ![20240112_154246_33](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/8b14ef16-6d69-4de1-93e2-b698b9c19bf0)
-![20240112_154246_34](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/588e12f0-54c4-4270-8341-8caec2152ceb)
-![20240112_154246_35](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/68afb5db-7279-4ca4-ad17-ae44a6d54de1)
+
+`BoardMapper`에 다음과 같이 코드를 작성합니다.  
+
+![20240112_154246_34](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/588e12f0-54c4-4270-8341-8caec2152ceb)  
+
+`BoardMapper.xml` delete()의 메서드 리턴 타입은 int로 지정해서 만일 정상적으로 데이터가 삭제되면 1 이상의 값을 가지도록 작성합니다.
+
+![20240112_154246_35](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/68afb5db-7279-4ca4-ad17-ae44a6d54de1)  
+
+테스트 코드를 추가하고 실행해본 뒤 '1'이라는 값이 출력되었는지 확인합니다.
+
 ![20240112_154246_36](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/18788248-7e49-4b72-8f3a-dcbf0d0e8cad)
-![20240112_154246_37](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/e5b4061c-6a1b-4ffa-9cfa-4ef26513934b)
-![20240112_154246_38](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/403611c6-330b-4077-84ec-b0fe8d7fff2b)
-![20240112_154246_39](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/3cbc0ce8-b29e-46b3-add3-b6979b11f330)
-![20240112_154246_40](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/81ba6461-47ba-4a40-8604-9e23e4dec27e)
-![20240112_154246_41](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/89caef96-3b26-4e00-b079-b6e10459c3e1)
+
+정상적으로 출력되었습니다.
+
+-**update 처리**
+
+게시물의 업데이트는 제목, 내용, 작성자를 수정합니다. 업데이트할 때는 최종 수정시간을 데이터베이스 내 현재 시간으로 수정합니다. delete와 마찬가지로 '몇 개의 데이터가 수정되었는가'를 처리할 수 있게 int 타입으로 메서드를 설계할 수 있습니다.
+
+![20240112_154246_37](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/e5b4061c-6a1b-4ffa-9cfa-4ef26513934b)  
+
+`BoardMapper`에 update 코드를 추가하고
+
+![20240112_154246_38](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/403611c6-330b-4077-84ec-b0fe8d7fff2b)  
+
+`BoardMapper.xml`에 update SQL 쿼리를 추가합니다. 앞서 말했듯이 제목, 내용, 작성자를 수정할 수 있습니다.  
+
+![20240112_154246_39](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/3cbc0ce8-b29e-46b3-add3-b6979b11f330)  
+
+다음과 같이 Test 코드를 작성하여 실행해보면 정상적으로 처리되는것을 확인할 수 있습니다.
+![20240112_154246_40](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/81ba6461-47ba-4a40-8604-9e23e4dec27e)  
+
+![20240112_154246_41](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/89caef96-3b26-4e00-b079-b6e10459c3e1)  
+
+SQL developer 에서도 select 문을 실행해본 결과 정상적으로 수정된 것을 확인할 수 있습니다.
+
+
+
+
+-***오류해결***
+![20240112_154246_24](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/6ade5505-0c3e-46fa-a351-b1b5bdf9b9ed)
+
+Test코드를 작성하던 중 오류가 발생하여 확인하니 BoardVO 클래스의 @Data 어노테이션이 누락되어 있어 추가해주어 해결하였습니다.
+
+![20240112_154246_25](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/cd722087-51b3-40b9-9aaf-1db203333659)
