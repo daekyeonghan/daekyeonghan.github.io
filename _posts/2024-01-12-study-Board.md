@@ -1,5 +1,5 @@
 ---
-title:  "Part 3 기본적인 웹 게시물 관리"
+title:  "Part 3 기본적인 웹 게시물 관리 - Chapter 08"
 excerpt: "코드로 배우는 스프링 웹 프로젝트"
 
 categories:
