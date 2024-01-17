@@ -1,0 +1,175 @@
+---
+title:  "Part 3 기본적인 웹 게시물 관리 - Chapter 10"
+excerpt: "코드로 배우는 스프링 웹 프로젝트"
+
+categories:
+  - Board
+tags:
+  - [Board]
+
+toc: true
+toc_sticky: true
+ 
+date: 2024-01-17
+last_modified_at: 2024-01-17
+---
+
+### Board
+---
+
+- **Part 3 기본적인 웹 게시물 관리** 
+Chapter 10 프레젠테이션(웹) 계층의 CRUD 구현
+
+-**Controller**
+
+하나의 클래스 내에서 여러 메서드를 작성하고 @RequestMapping 어노테이션 등을 이용해 URL을 분기하는 구조로 작성할 수 있기 때문에  
+하나의 클래스에서 필요한 만큼 메서드의 분기를 이용하는 구조로 작성합니다.  
+
+BoardController 작성
+
+<table>
+  <tr>
+    <td>Task</td>
+    <td>URL</td>
+    <td>Method</td>
+    <td>Parameter</td>
+    <td>From</td>
+    <td>URL 이동</td>
+  </tr>
+  <tr>
+    <td>전체목록</td>
+    <td>/board/list</td>
+    <td>GET</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>등록 처리</td>
+    <td>/board/register</td>
+    <td>POST</td>
+    <td>모든 항목</td>
+    <td>입력화면 필요</td>
+    <td>이동</td>
+  </tr>
+  <tr>
+    <td>조회</td>
+    <td>/board/read</td>
+    <td>GET</td>
+    <td>bno=123</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>삭제 처리</td>
+    <td>/board/remove</td>
+    <td>POST</td>
+    <td>bno</td>
+    <td>입력화면 필요</td>
+    <td>이동</td>
+  </tr>
+  <tr>
+    <td>수정 처리</td>
+    <td>/board/modify</td>
+    <td>POST</td>
+    <td>모든 항목</td>
+    <td>입력화면 필요</td>
+    <td>이동</td>
+  </tr>
+</table>
+
+From 항목은 해당 URL을 호출하기 위해 별도의 입력화면이 필요하다는것을 의미합니다.  
+
+
+![20240115_172514_1](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/099f5285-21f1-456b-9f11-d7bc9c18beb7)  
+
+BoardController을 선언하고 URL 분석된 내용들을 반영하는 메서드를 설계합니다.  
+
+![20240115_172514_4](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/48463344-31a7-4a1f-b8e1-0638869b5636)
+
+전체 목록을 가져오는 처리를 먼저 작성합니다.  
+
+![20240115_172514_3](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/c6a55294-307c-488c-b2d7-4eda18c735e0)  
+
+BoardControllerTests 테스트 파일을 생성하여 실행해서 전체 목록을 가져오는지 테스트합니다. 스프링의 테스트 기능을 활용하면 개발 당시에 Tomcat(WAS)을 실행하지 않고도 스프링과 웹 URL을 테스트할 수 있습니다. 
+
+![20240115_172514_2](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/eea98318-0313-4dff-a45a-e6788082a11d)  
+
+![20240115_172514_5](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/13b9682b-74bf-4ce1-a3cb-9037fd0d6e2e)  
+
+테스트를 실행해보니 NullPointerException이 발생하였습니다.  
+BoardController를 생성할 때 src/main/java -> org.zerock.controller 패키지에 넣어야하는데 src/main/java 에 클래스 파일을 생성해서 발생한 문제입니다.  
+
+![20240115_172514_6](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/62d3d02c-e9d4-4b9c-87d1-9855d0cef700)  
+
+정상적으로 전체 목록을 가져왔습니다.
+
+-**게시글 등록**
+
+BoardController에 POST 방식으로 처리되는 register() 메서드를 작성합니다.  
+
+![20240115_172514_7](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/f72417f3-7b86-4e36-9e76-9f13f4965f64)  
+
+등록 작업이 끝난 후 다시 목록화면으로 이동하기 위해 String을 리턴 타입으로 지정하고, RedirectAttributes를 파라미터로 지정합니다.  
+또한 새롭게 등록된 게시물의 번호를 같이 전달하기 위해서 RedirectAttributes를 이용합니다.  
+
+![20240115_172514_8](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/abaa9f77-84d7-46d5-9136-899e5366e9f5)  
+
+다음과 같이 테스트 코드를 작성해주고 실행해보면
+
+![20240115_172514_9](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/24d28aff-af88-4c05-9874-0c87ae80f579)  
+
+![20240115_172514_10](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/cd6cb2f1-05b4-4810-a240-9fb07627eaeb)  
+
+BoardVO 객체로 올바르게 데이터가 바인딩된 결과를 볼 수 있고 SQL Developer에서 테이블을 조회해보면 해당 데이터로 게시물이 새롭게 생성된 것을 확인할 수 있습니다.  
+
+-**게시글 조회**
+
+
+![20240115_172514_11](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/6a396086-ef2a-430d-bafa-ba1827499379)  
+
+조회 기능을 담당하는 get() 메서드를 작성합니다.  
+bno 값을 좀 더 명시적으로 처리하는 @RequestParam을 이용해서 지정합니다.  
+또한 화면 쪽으로 해당 번호와 게시물을 전달해야 하므로 Model을 파라미터로 지정합니다.  
+
+![20240115_172514_12](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/67048ccb-e8b4-4042-9585-764381bfd6c8)  
+
+특정 게시물을 조회할 때 반드시 'bno'라는 파라미터가 필요하므로 param()을 통해서 추가하고 실행합니다.  
+
+![20240115_172514_13](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/fed5a8d2-6162-442d-854b-fa320c01fd33)  
+
+bno를 2번을 입력하였으므로 2번에 해당하는 게시물의 정보를 로그에서 확인할 수 있습니다.  
+
+-**게시물 수정**
+
+![20240115_172514_14](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/8ad1e112-028b-45df-b04e-5f3921b1f623)  
+
+변경된 내용을 수집해서 BoardVO 파라미터로 처리하고 BoardService를 호출합니다.  
+화면의 경우에는 GET 방식으로 접근하지만 실제 작업은 POST 방식으로 동작하므로 @PostMapping 어노테이션을 이용합니다.  
+
+![20240115_172514_15](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/c2e806d6-1161-46de-9791-fa7d29535a14)  
+
+테스트 코드를 작성하고 실행해보면  
+
+![20240115_172514_16](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/a606caf2-6e99-4d22-b0b9-c8514fa39a4d)  
+
+로그에 정상적으로 나오는것을 확인할 수 있습니다.  
+
+-**게시글 삭제**
+
+![20240115_172514_17](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/ffb5f24a-2617-4fbe-b036-3abf85dd4485)  
+
+삭제는 반드시 POST 방식으로 처리해야합니다.  
+삭제 후 페이지의 이동이 필요하므로 RedirectAttributes를 파라미터로 사용하고 'redirect'를 이용해서 삭제 처리 후에 다시 목록 페이지로 이동합니다.  
+
+![20240115_172514_18](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/a1c16c7b-d1bd-4f39-8857-16355562a8e3)  
+
+테스트 코드를 작성하고 실행해보면  
+
+![20240115_172514_19](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/ddec1360-0e0f-48b4-97f7-fc99c920bd92)  
+
+12번 게시물을 삭제처리했고  
+
+![20240115_172514_20](https://github.com/daekyeonghan/daekyeonghan.github.io/assets/117332830/4e215248-a391-4f1d-85b5-bb24289f56dc)  
+
+테이블을 조회해서 확인해보면 12번 게시물이 삭제된 것을 확인할 수 있습니다.  
